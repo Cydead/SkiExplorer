@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ski Explorer</title>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="nav-brand">
+            <i data-lucide="mountain-snow" style="color: #fff"></i>
+            <h1>SKI EXPLORER</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html" class="active">Start</a>
+            <a href="karte.html">Karte</a>
+            <a href="entdecken.html">Entdecken</a>
+            <a href="vergleich.html">Vergleich</a>
+            <a href="matchmaker.html" id="nav-matchmaker">Matchmaker</a>
+        </div>
+    </nav>
+
+    <div id="home-view" class="view" style="display: block;">
+        <header class="hero-section">
+            <h1 class="hero-title">WILLKOMMEN IM SCHNEE</h1>
+            <p class="hero-subtitle">Ihr exklusiver Guide für die herausragendsten Skigebiete weltweit. Entdecken Sie Pistenpläne, Daten und die erlesensten Orte für Ihren nächsten Winteraufenthalt.</p>
+            <div class="hero-buttons">
+                <a href="matchmaker.html" class="btn-primary">Ski-Matchmaker</a>
+                <a href="karte.html" class="btn-secondary">Karte öffnen</a>
+                <a href="entdecken.html" class="btn-secondary" style="border-color: transparent; border-bottom-color: white;">Entdecken</a>
+            </div>
+        </header>
+
+        <section class="info-section">
+            <h2>Skikulturen der Welt</h2>
+            <p>Jede Gebirgsregion bietet ein völlig einzigartiges Wintersport-Erlebnis. Ob endlose Pisten in Europa, der legendäre Pulverschnee in Asien oder das Heliskiing-Mekka in Nordamerika – entdecken Sie die Besonderheiten der Kontinente.</p>
+            
+            <div class="region-grid">
+                <a href="alpen.html" class="region-card">
+                    <div class="region-img-wrapper"><div class="region-img" style="background-image: url('bilder/alpen.jpg')"></div></div>
+                    <div class="region-body">
+                        <h3><i data-lucide="map-pin" style="color: var(--accent)"></i> DIE ALPEN</h3>
+                        <p>Das Herz des europäischen Skisports. Hier erwarten Sie riesige, miteinander verbundene Skigebiete, legendäre Tradition und unvergleichliche Hüttenkultur in Österreich, Schweiz, Frankreich und Italien.</p>
+                    </div>
+                </a>
+                <a href="japan.html" class="region-card">
+                    <div class="region-img-wrapper"><div class="region-img" style="background-image: url('bilder/japan.jpg')"></div></div>
+                    <div class="region-body">
+                        <h3><i data-lucide="snowflake" style="color: var(--accent)"></i> JAPAN (JAPOW)</h3>
+                        <p>Besonders Hokkaido ist weltberühmt für den "Japow" – unfassbare Mengen an trockenem Pulverschnee. Dazu exquisite Kulinarik und entspannende heiße Quellen (Onsen) nach dem Skifahren.</p>
+                    </div>
+                </a>
+                <a href="rockies.html" class="region-card">
+                    <div class="region-img-wrapper"><div class="region-img" style="background-image: url('bilder/rockies.jpg')"></div></div>
+                    <div class="region-body">
+                        <h3><i data-lucide="trees" style="color: var(--accent)"></i> ROCKY MOUNTAINS</h3>
+                        <p>Kanada und die USA locken mit extremer Weite, leeren Pisten und Heliskiing. Hier steht das exklusive Naturerlebnis im Vordergrund – durch tiefe Wälder oder in weltbekannten Resorts.</p>
+                    </div>
+                </a>
+                <a href="ozeanien.html" class="region-card">
+                    <div class="region-img-wrapper"><div class="region-img" style="background-image: url('bilder/ozeanien.jpg')"></div></div>
+                    <div class="region-body">
+                        <h3><i data-lucide="sun" style="color: var(--accent)"></i> OZEANIEN</h3>
+                        <p>Skifahren auf der Südhalbkugel. Wenn im Norden Sommer ist, locken die Neuseeländischen Alpen und die Snowy Mountains in Australien mit feinstem Schnee und unglaublichen Ausblicken.</p>
+                    </div>
+                </a>
+                <a href="skandinavien.html" class="region-card">
+                    <div class="region-img-wrapper"><div class="region-img" style="background-image: url('bilder/skandinavien.jpg')"></div></div>
+                    <div class="region-body">
+                        <h3><i data-lucide="snowflake" style="color: var(--accent)"></i> SKANDINAVIEN</h3>
+                        <p>Fjorde, endlose Wälder und Polarlichter. Norwegen, Schweden und Finnland bieten extrem schneesichere, weite Gebiete mit beleuchteten Pisten für die dunklen Wintertage.</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <div class="about-content">
+                <div class="about-icon-wrapper"><i data-lucide="compass" size="64"></i></div>
+                <div class="about-text">
+                    <h2>VON SKIFAHRERN <br><span>FÜR SKIFAHRER</span></h2>
+                    <p>Wir sind mehr als nur Entwickler – wir sind passionierte Wintersportler, die den Großteil ihres Lebens auf der Suche nach dem perfekten Pulverschnee und den anspruchsvollsten Abfahrten verbracht haben.</p>
+                    <p>Der <strong>Welt Ski Explorer</strong> ist aus unserer eigenen Leidenschaft entstanden. Wir wollten ein Werkzeug erschaffen, das die Magie der Berge, die Vielfalt der weltweiten Skikulturen und alle essenziellen Fakten in puristischer Eleganz bündelt.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3><i data-lucide="mountain-snow" style="color: var(--accent);"></i> WELT SKI EXPLORER</h3>
+                    <p>Ihr intelligenter Premium Guide für die faszinierendsten Skigebiete weltweit. Entdecken, vergleichen und planen Sie Ihr nächstes großes Winter-Abenteuer.</p>
+                </div>
+                <div class="footer-impressum">
+                    <h4>IMPRESSUM & KONTAKT</h4>
+                    <div class="impressum-grid">
+                        <div class="impressum-block">
+                            <strong>Betreiber der Website</strong>
+                            <span>John Doe</span>
+                            <span>Musterstraße 1</span>
+                            <span>10115 Berlin</span>
+                        </div>
+                        <div class="impressum-block">
+                            <strong>Kontaktmöglichkeiten</strong>
+                            <span>Telefon: +49 30 1234567</span>
+                            <span>E-Mail: contact@weltskiexplorer.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

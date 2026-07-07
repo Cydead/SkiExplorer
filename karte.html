@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ski Explorer - Karte</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="nav-brand">
+            <i data-lucide="mountain-snow" style="color: #fff"></i>
+            <h1>SKI EXPLORER</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Start</a>
+            <a href="karte.html" class="active">Karte</a>
+            <a href="entdecken.html">Entdecken</a>
+            <a href="vergleich.html">Vergleich</a>
+            <a href="matchmaker.html" id="nav-matchmaker">Matchmaker</a>
+        </div>
+    </nav>
+
+    <div id="map-view" class="view" style="display: block;">
+        <div id="map"></div>
+        <div class="map-overlay-controls">
+            <div class="control-group">
+                <span class="control-label"><i data-lucide="globe" size="14"></i> Region</span>
+                <div class="btn-group">
+                    <button class="map-btn" onclick="flyToRegion('alpen')">Alpen</button>
+                    <button class="map-btn" onclick="flyToRegion('usa')">USA</button>
+                    <button class="map-btn" onclick="flyToRegion('kanada')">Kanada</button>
+                    <button class="map-btn" onclick="flyToRegion('japan')">Japan</button>
+                    <button class="map-btn" onclick="flyToRegion('ozeanien')">Ozeanien</button>
+                    <button class="map-btn" onclick="flyToRegion('skandinavien')">Skandinavien</button>
+                </div>
+            </div>
+            <div class="control-group">
+                <span class="control-label"><i data-lucide="filter" size="14"></i> Filter</span>
+                <select id="map-filter-size" class="map-select" onchange="applyMapFilters()">
+                    <option value="0">Alle Größen</option>
+                    <option value="100">&gt; 100 km Pisten</option>
+                    <option value="200">&gt; 200 km Pisten</option>
+                    <option value="300">&gt; 300 km Pisten</option>
+                </select>
+                <select id="map-filter-price" class="map-select" onchange="applyMapFilters()">
+                    <option value="0">Alle Preise</option>
+                    <option value="1">Preiswert</option>
+                    <option value="2">Mittel</option>
+                    <option value="3">Premium</option>
+                </select>
+                <button id="map-filter-apres" class="map-btn toggle-btn" onclick="toggleApresFilter()">Après-Ski</button>
+            </div>
+        </div>
+
+        <aside id="sidebar">
+            <button class="close-btn" onclick="closeSidebar()"><i data-lucide="x" size="18"></i></button>
+            <div id="sb-img" class="sidebar-header">
+                <h2 id="sb-title" class="sidebar-title">Skigebiet</h2>
+            </div>
+            <div class="sidebar-content">
+                <div id="sb-tags" style="margin-bottom: 20px;"></div>
+                <div class="stat-grid">
+                    <div class="stat-box"><strong><span id="sb-piste" style="font-size: inherit; color: inherit; letter-spacing: normal; text-transform: none;"></span> km</strong><span>Pistennetz</span></div>
+                    <div class="stat-box"><strong><span id="sb-lifts" style="font-size: inherit; color: inherit; letter-spacing: normal; text-transform: none;"></span></strong><span>Lifte</span></div>
+                    <div class="stat-box"><strong><span id="sb-elev" style="font-size: inherit; color: inherit; letter-spacing: normal; text-transform: none;"></span> m</strong><span>Gipfelhöhe</span></div>
+                    <div class="stat-box"><strong><span id="sb-price" style="font-size: inherit; color: inherit; letter-spacing: normal; text-transform: none;"></span></strong><span>Tagespass</span></div>
+                </div>
+                <div style="background: var(--surface-alt); border: 1px solid var(--border); padding: 15px 20px; margin-bottom: 30px; display: flex; align-items: center; gap: 15px;">
+                    <i data-lucide="calendar" size="20" style="color: var(--accent);"></i>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Schneesicherste Reisezeit<br><strong id="sb-best-time" style="color: var(--primary); font-size: 0.9rem; letter-spacing: 0;"></strong></div>
+                </div>
+                <div class="difficulty-wrapper">
+                    <h4><i data-lucide="bar-chart" size="14"></i> PISTEN-AUFTEILUNG</h4>
+                    <div class="diff-bar-container">
+                        <div id="sb-diff-blue" class="diff-segment diff-blue"></div>
+                        <div id="sb-diff-red" class="diff-segment diff-red"></div>
+                        <div id="sb-diff-black" class="diff-segment diff-black"></div>
+                    </div>
+                    <div class="diff-legend">
+                        <span><div class="dot diff-blue"></div>Leicht</span>
+                        <span><div class="dot diff-red"></div>Mittel</span>
+                        <span><div class="dot diff-black"></div>Schwer</span>
+                    </div>
+                </div>
+                <div style="margin-top: 40px;">
+                    <h4 style="margin: 0 0 15px 0; display: flex; align-items: center; gap: 10px; color: var(--primary)">
+                        <i data-lucide="info" size="14" style="color: var(--accent)"></i> HIGHLIGHTS
+                    </h4>
+                    <p id="sb-desc" style="line-height: 1.8; font-size: 0.95rem; color: var(--text-muted); margin: 0; font-weight: 300;"></p>
+                </div>
+                <div id="sb-piste-map-container" style="display: none; margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--border);">
+                    <h4 style="margin: 0 0 15px 0; display: flex; align-items: center; gap: 10px; color: var(--primary)">
+                        <i data-lucide="map" size="14" style="color: var(--accent)"></i> PISTENPLAN
+                    </h4>
+                    <div id="sb-piste-map" class="piste-map-thumb" onclick="openLightbox()"></div>
+                </div>
+                <div style="margin-top: 30px;">
+                    <a id="sb-website" href="#" target="_blank" class="btn-website" style="display: none;">
+                        OFFIZIELLE WEBSITE <i data-lucide="arrow-up-right" size="14"></i>
+                    </a>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <div id="lightbox" onclick="closeLightbox(event)">
+        <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
+        <img id="lightbox-img" src="" alt="Pistenplan Vergrößert">
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

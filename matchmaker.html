@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ski Explorer</title>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <div class="nav-brand">
+            <i data-lucide="mountain-snow" style="color: #fff"></i>
+            <h1>SKI EXPLORER</h1>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Start</a>
+            <a href="karte.html">Karte</a>
+            <a href="entdecken.html">Entdecken</a>
+            <a href="vergleich.html">Vergleich</a>
+            <a href="matchmaker.html" class="active" id="nav-matchmaker">Matchmaker</a>
+        </div>
+    </nav>
+
+    <div id="matchmaker-view" class="view" style="display: block;">
+        <div class="matchmaker-container" id="matchmaker-intro">
+            <div class="matchmaker-header">
+                <i data-lucide="compass" size="40"></i>
+                <h2>SKI MATCHMAKER</h2>
+                <p>Beantworten Sie 4 präzise Fragen. Unser Algorithmus ermittelt daraufhin die Skigebiete, die perfekt auf Ihre individuellen Ansprüche zugeschnitten sind.</p>
+            </div>
+            <div id="quiz-container">
+                <div class="quiz-progress"><div class="quiz-progress-bar" id="quiz-progress-bar"></div></div>
+                <div class="quiz-step active" id="step-1">
+                    <div class="quiz-question">1. BEVORZUGTE REGION</div>
+                    <div style="color: var(--text-muted); margin-bottom: 30px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">(Bitte wählen Sie eine Region)</div>
+                    <div class="quiz-options">
+                        <button class="quiz-btn toggle-btn-quiz" onclick="toggleRegion(this, 'alpen')">DIE ALPEN (AT, CH, FR, IT, DE) <i data-lucide="check"></i></button>
+                        <button class="quiz-btn toggle-btn-quiz" onclick="toggleRegion(this, 'skandinavien')">SKANDINAVIEN (SE, NO, FI) <i data-lucide="check"></i></button>
+                        <button class="quiz-btn toggle-btn-quiz" onclick="toggleRegion(this, 'nordamerika')">NORDAMERIKA (USA, CAN) <i data-lucide="check"></i></button>
+                        <button class="quiz-btn toggle-btn-quiz" onclick="toggleRegion(this, 'asien')">ASIEN (JAPAN) <i data-lucide="check"></i></button>
+                        <button class="quiz-btn toggle-btn-quiz" onclick="toggleRegion(this, 'ozeanien')">OZEANIEN (AUS, NZL) <i data-lucide="check"></i></button>
+                    </div>
+                    <p id="region-error" style="color: #990000; font-size: 0.85rem; margin-top: 20px; display: none; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em;">Bitte wählen Sie eine Region aus.</p>
+                    <div class="quiz-navigation" style="justify-content: flex-end;">
+                        <button class="btn-primary match-next" onclick="submitStep1()">WEITER</button>
+                    </div>
+                </div>
+                <div class="quiz-step" id="step-alpen">
+                    <div class="quiz-question">1B. ALPEN-LÄNDER</div>
+                    <div style="color: var(--text-muted); margin-bottom: 30px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">(Mehrfachauswahl möglich)</div>
+                    <div class="quiz-options">
+                        <button class="quiz-btn toggle-btn-alpen" onclick="toggleAlpenCountry(this, 'Österreich')">ÖSTERREICH <i data-lucide="check"></i></button>
+                        <button class="quiz-btn toggle-btn-alpen" onclick="toggleAlpenCountry(this, 'Schweiz')">SCHWEIZ <i data-lucide="check"></i></button>
+                        <button class="quiz-btn toggle-btn-alpen" onclick="toggleAlpenCountry(this, 'Frankreich')">FRANKREICH <i data-lucide="check"></i></button>
+                        <button class="quiz-btn toggle-btn-alpen" onclick="toggleAlpenCountry(this, 'Italien')">ITALIEN <i data-lucide="check"></i></button>
+                        <button class="quiz-btn toggle-btn-alpen" onclick="toggleAlpenCountry(this, 'Deutschland')">DEUTSCHLAND <i data-lucide="check"></i></button>
+                    </div>
+                    <p id="alpen-error" style="color: #990000; font-size: 0.85rem; margin-top: 20px; display: none; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em;">Bitte wählen Sie mindestens ein Land.</p>
+                    <div class="quiz-navigation" style="flex-direction: column; gap: 20px;">
+                        <button class="btn-primary match-next" onclick="submitStepAlpen()">WEITER</button>
+                        <button class="btn-back-quiz" onclick="prevMatchStep('step-alpen', 'step-1', 20)"><i data-lucide="arrow-left" size="14"></i> ZURÜCK</button>
+                    </div>
+                </div>
+                <div class="quiz-step" id="step-2">
+                    <div class="quiz-question">2. REISEGESELLSCHAFT</div>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="answerMatch(2, 'familie')">MIT DER FAMILIE / KINDERN <i data-lucide="arrow-right"></i></button>
+                        <button class="quiz-btn" onclick="answerMatch(2, 'freunde')">MIT FREUNDEN (FOKUS APRÈS-SKI) <i data-lucide="arrow-right"></i></button>
+                        <button class="quiz-btn" onclick="answerMatch(2, 'sportlich')">SPORTLICHER FOKUS (Freunde / PAAR / ALLEINE<i data-lucide="arrow-right"></i></button>
+                    </div>
+                    <div class="quiz-navigation" id="nav-back-2"></div>
+                </div>
+                <div class="quiz-step" id="step-3">
+                    <div class="quiz-question">3. BUDGETPRÄFERENZ</div>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="answerMatch(3, 1)">PREISWERT / EFFIZIENT <i data-lucide="arrow-right"></i></button>
+                        <button class="quiz-btn" onclick="answerMatch(3, 2)">DURCHSCHNITT / GEHOBEN <i data-lucide="arrow-right"></i></button>
+                        <button class="quiz-btn" onclick="answerMatch(3, 3)">PREMIUM / LUXUS <i data-lucide="arrow-right"></i></button>
+                    </div>
+                    <div class="quiz-navigation"><button class="btn-back-quiz" onclick="prevMatchStep('step-3', 'step-2', 50)"><i data-lucide="arrow-left" size="14"></i> ZURÜCK</button></div>
+                </div>
+                <div class="quiz-step" id="step-4">
+                    <div class="quiz-question">4. PRIMÄRER FOKUS</div>
+                    <div class="quiz-options">
+                        <button class="quiz-btn" onclick="answerMatch(4, 'schnee')">ABSOLUTE SCHNEESICHERHEIT (GLETSCHER) <i data-lucide="arrow-right"></i></button>
+                        <button class="quiz-btn" onclick="answerMatch(4, 'riesig')">WEITLÄUFIGES PISTENNETZ <i data-lucide="arrow-right"></i></button>
+                        <button class="quiz-btn" onclick="answerMatch(4, 'klein')">ÜBERSCHAUBARES GEBIET <i data-lucide="arrow-right"></i></button>
+			<button class="quiz-btn" onclick="answerMatch(4, 'freestyle')">FOKUS AUF SNOWPARKS & FREESTYLE <i data-lucide="arrow-right"></i></button>
+                    </div>
+                    <div class="quiz-navigation"><button class="btn-back-quiz" onclick="prevMatchStep('step-4', 'step-3', 75)"><i data-lucide="arrow-left" size="14"></i> ZURÜCK</button></div>
+                </div>
+            </div>
+            <button class="btn-secondary" id="matchmaker-restart" style="display:none; margin: 50px auto 0; border-color: var(--border); color: var(--primary);" onclick="resetMatchmaker()">NEU STARTEN</button>
+        </div>
+        <div class="match-results" id="match-results"></div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
